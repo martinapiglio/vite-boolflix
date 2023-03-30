@@ -9,23 +9,26 @@ export default {
     },
 
     props: {
-        title: String,
-        originalTitle: String,
-        originalLanguage: String,
-        vote: Number,
-        mediaType: String
+        result: Object,
     },
 
     methods: {
 
         getFlag(string) {
             let languageCodeUpper = string.toUpperCase();
+            let srcFlag;
+
+            console.log(languageCodeUpper);
 
             if (languageCodeUpper == 'EN') {
                 languageCodeUpper = 'GB';
-            };
+            } else if (languageCodeUpper == 'JA'){
+                languageCodeUpper = 'JP';
+            } else if (languageCodeUpper == 'KO'){
+                languageCodeUpper = 'KR';
+            }; 
 
-            let srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
+            srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
 
             return srcFlag;
         },
@@ -39,12 +42,32 @@ export default {
 
     <div class="movie">
         <ul>
-            <li><span>Titolo:</span> {{ title }}</li>
-            <li><span>Titolo Originale:</span> {{ originalTitle }}</li>
-            <li><span>Lingua Originale:</span> 
-                <img :src="getFlag(originalLanguage)" alt="flag"></li>
-            <li><span>Voto:</span> {{ vote }}</li>
-            <li> <span>Tipo:</span> {{ mediaType }} </li>
+            <li>
+                <span class="label">Titolo: </span>
+                <span v-if="result.media_type == 'movie'">{{ result.title }}</span>
+                <span v-else>{{ result.name }}</span>
+            </li>
+
+            <li>
+                <span class="label">Titolo Originale: </span>
+                <span v-if="result.media_type == 'movie'">{{ result.original_title }}</span>
+                <span v-else>{{ result.original_name }}</span>
+            </li>
+
+            <li>
+                <span class="label">Lingua Originale: </span> 
+                <img :src="getFlag(result.original_language)" alt="flag"> 
+            </li>
+
+            <li>
+                <span class="label">Voto: </span> {{ result.vote_average }}
+            </li>
+
+            <li>
+                <span class="label">Tipo: </span>
+                <span v-if="result.media_type == 'movie'">Film</span> 
+                <span v-else>Serie tv</span>
+            </li> 
             
         </ul>
     </div>
@@ -53,19 +76,23 @@ export default {
 
 <style scoped lang="scss">
 
+    // test styling
     .movie {
         color: white;
         border: 1px solid white;
+        width: calc(100% / 3 - 10px / 3 * 2);
+        padding: 1rem;
 
-        span {
+
+        .label {
             font-weight: bold;
         }
-
-        // test
+        
         img {
             width: 20px;
         }
-        //test
+        
     }
+    // test styling
 
 </style>
