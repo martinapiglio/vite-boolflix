@@ -1,5 +1,13 @@
 <script>
+import { store } from '../store';
 
+export default {
+    data() {
+        return {
+            store
+        }
+    }
+}
 </script>
 
 <template>
@@ -11,8 +19,8 @@
         </div>
 
         <div id="header-right">
-            <input type="text" placeholder="Search for a movie or a tv series...">
-            <button>Search</button>
+            <input v-model="store.searchedText" @keyup.enter="$emit('searchMovieFunction')" type="search" placeholder="Search for a movie or a tv series...">
+            <button @click="$emit('searchMovieFunction')">Search</button>
         </div>
 
     </header>
