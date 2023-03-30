@@ -19,17 +19,15 @@ export default {
 
         getFlag(string) {
             let languageCodeUpper = string.toUpperCase();
+
             if (languageCodeUpper == 'EN') {
-                languageCodeUpper = 'GB'
-            }
+                languageCodeUpper = 'GB';
+            };
 
             let srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
 
-            console.log(languageCodeUpper)
-            console.log(srcFlag)
             return srcFlag;
 
-            // return languageCodeUpper;
         },
 
     }
@@ -44,7 +42,7 @@ export default {
             <li><span>Titolo:</span> {{ title }}</li>
             <li><span>Titolo Originale:</span> {{ originalTitle }}</li>
             <li><span>Lingua Originale:</span> 
-                <img :src="getFlag(originalLanguage)" alt=""></li>
+                <img :src="getFlag(originalLanguage)" alt="flag"></li>
             <li><span>Voto:</span> {{ vote }}</li>
             
         </ul>
@@ -62,9 +60,11 @@ export default {
             font-weight: bold;
         }
 
+        // test
         img {
             width: 20px;
         }
+        //test
     }
 
 </style>

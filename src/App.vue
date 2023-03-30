@@ -3,6 +3,7 @@ import { store } from './store';
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+import AppNoResults from './components/AppNoResults.vue';
 
 export default {
     data() {
@@ -13,7 +14,8 @@ export default {
 
     components: {
         AppHeader,
-        AppMain
+        AppMain,
+        AppNoResults
     },
 
     created() {
@@ -35,10 +37,15 @@ export default {
                     query: store.searchedText
                 }
             }).then((res) => {
-                this.store.foundMovies = res.data.results;
-                console.log(this.store.foundMovies);
-                console.log(res.data);
-            })
+
+                if (res.data.results.length == 0) {
+                    store.queryHasResults = false;
+                } else {
+                    store.queryHasResults = true;
+                    store.foundMovies = res.data.results;
+                };
+
+            });
         }
     }
 }
@@ -47,7 +54,8 @@ export default {
 <template>
 
     <AppHeader @searchMovieFunction="searchMovie()"></AppHeader>
-    <AppMain></AppMain>
+    <AppMain v-if="store.queryHasResults"></AppMain>
+    <AppNoResults v-else></AppNoResults>
 
 </template>
 

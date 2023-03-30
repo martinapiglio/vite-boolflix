@@ -7,6 +7,7 @@ export const store = reactive({
 
     APIcallMovie: 'https://api.themoviedb.org/3/search/movie',
     searchedText: '',
-    foundMovies: []
+    foundMovies: [],
+    queryHasResults: true,
 
 });
