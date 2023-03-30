@@ -8,20 +8,24 @@ export default {
             store
         }
     },
+
     components: {
         AppMovie
     }
+
 }
+
 </script>
 
 <template>
   <main>
 
     <div class="container">
+        
         <AppMovie v-for="movie in store.foundMovies" 
             :title="movie.title"
             :originalTitle="movie.original_title"
-            :originalLanguage="movie.original_language"
+            :originalLanguage="movie.original_language"   
             :vote="movie.vote_average">
         </AppMovie>
     </div>

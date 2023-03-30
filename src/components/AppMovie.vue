@@ -13,7 +13,27 @@ export default {
         originalTitle: String,
         originalLanguage: String,
         vote: Number
+    },
+
+    methods: {
+
+        getFlag(string) {
+            let languageCodeUpper = string.toUpperCase();
+            if (languageCodeUpper == 'EN') {
+                languageCodeUpper = 'GB'
+            }
+
+            let srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
+
+            console.log(languageCodeUpper)
+            console.log(srcFlag)
+            return srcFlag;
+
+            // return languageCodeUpper;
+        },
+
     }
+    
 }
 </script>
 
@@ -23,8 +43,10 @@ export default {
         <ul>
             <li><span>Titolo:</span> {{ title }}</li>
             <li><span>Titolo Originale:</span> {{ originalTitle }}</li>
-            <li><span>Lingua Originale:</span> {{ originalLanguage }}</li>
+            <li><span>Lingua Originale:</span> 
+                <img :src="getFlag(originalLanguage)" alt=""></li>
             <li><span>Voto:</span> {{ vote }}</li>
+            
         </ul>
     </div>
 
@@ -38,6 +60,10 @@ export default {
 
         span {
             font-weight: bold;
+        }
+
+        img {
+            width: 20px;
         }
     }
 
