@@ -19,8 +19,8 @@ export default {
         </div>
 
         <div id="header-right">
-            <input v-model="store.searchedText" @keyup.enter="$emit('searchMovieFunction')" type="search" placeholder="Search for a movie or a tv series...">
-            <button @click="$emit('searchMovieFunction')">Search</button>
+            <input v-model="store.searchedText" @keyup.enter="$emit('searchFunction')" type="search" placeholder="Search for a movie or a tv series...">
+            <button @click="$emit('searchFunction')">Search</button>
         </div>
 
     </header>

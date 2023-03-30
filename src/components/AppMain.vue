@@ -1,6 +1,6 @@
 <script>
 import { store } from '../store';
-import AppMovie from './AppMovie.vue';
+import AppResults from './AppResults.vue';
 
 export default {
     data() {
@@ -10,7 +10,7 @@ export default {
     },
 
     components: {
-        AppMovie
+        AppResults
     }
 
 }
@@ -22,12 +22,13 @@ export default {
 
     <div class="container">
         
-        <AppMovie v-for="movie in store.foundMovies" 
-            :title="movie.title"
-            :originalTitle="movie.original_title"
-            :originalLanguage="movie.original_language"   
-            :vote="movie.vote_average">
-        </AppMovie>
+        <AppResults v-for="result in store.foundResults" 
+            :title="result.title"
+            :originalTitle="result.original_title"
+            :originalLanguage="result.original_language"   
+            :vote="result.vote_average"
+            :mediaType="result.media_type">
+        </AppResults>
     </div>
 
   </main>

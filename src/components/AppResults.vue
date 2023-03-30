@@ -12,7 +12,8 @@ export default {
         title: String,
         originalTitle: String,
         originalLanguage: String,
-        vote: Number
+        vote: Number,
+        mediaType: String
     },
 
     methods: {
@@ -27,7 +28,6 @@ export default {
             let srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
 
             return srcFlag;
-
         },
 
     }
@@ -44,6 +44,7 @@ export default {
             <li><span>Lingua Originale:</span> 
                 <img :src="getFlag(originalLanguage)" alt="flag"></li>
             <li><span>Voto:</span> {{ vote }}</li>
+            <li> <span>Tipo:</span> {{ mediaType }} </li>
             
         </ul>
     </div>

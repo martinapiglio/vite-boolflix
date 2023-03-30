@@ -20,18 +20,19 @@ export default {
 
     created() {
 
-        let APIcallTrendingPROVA = store.APIcallTrending + '/movie/week?api_key=' + store.APIkey
+        let APIcallTrendingPROVA = store.APIcallTrending + '/all/week?api_key=' + store.APIkey
 
         axios.get(APIcallTrendingPROVA).then((res) => {
-            store.foundMovies = res.data.results;
-            console.log(store.foundMovies);
+            store.foundResults = res.data.results;
+            console.log(store.foundResults);
             console.log(res.data);
         })
     },
 
     methods: {
-        searchMovie() {
-            axios.get(store.APIcallMovie, {
+
+        search() {
+            axios.get(store.APIcallMulti, {
                 params: {
                     api_key: store.APIkey,
                     query: store.searchedText
@@ -42,7 +43,7 @@ export default {
                     store.queryHasResults = false;
                 } else {
                     store.queryHasResults = true;
-                    store.foundMovies = res.data.results;
+                    store.foundResults = res.data.results;
                 };
 
             });
@@ -53,7 +54,7 @@ export default {
 
 <template>
 
-    <AppHeader @searchMovieFunction="searchMovie()"></AppHeader>
+    <AppHeader @searchFunction="search()"></AppHeader>
     <AppMain v-if="store.queryHasResults"></AppMain>
     <AppNoResults v-else></AppNoResults>
 
