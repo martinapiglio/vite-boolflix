@@ -12,5 +12,8 @@ export const store = reactive({
     foundSeries: [],
     maxVote: 10,
     maxStars: 5,
+
+    imgURI: 'https://image.tmdb.org/t/p/',
+    imgSize: 'w342/',
     queryHasResults: true
 });

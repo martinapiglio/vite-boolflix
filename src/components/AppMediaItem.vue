@@ -72,6 +72,9 @@ export default {
 <template>
 
     <div class="media-item">
+
+        <img :src=" store.imgURI + store.imgSize + mediaItem.poster_path" alt="">
+
         <ul>
             <li>
                 <span class="label">Titolo: </span>
@@ -87,7 +90,7 @@ export default {
 
             <li>
                 <span class="label">Lingua Originale: </span> 
-                <img :src="getFlag(mediaItem.original_language)" alt="flag"> 
+                <img class="flag" :src="getFlag(mediaItem.original_language)" alt="flag"> 
             </li>
 
             <li>
@@ -111,12 +114,15 @@ export default {
         width: calc(100% / 3 - 10px / 3 * 2);
         padding: 1rem;
 
+        img {
+            width: 100%;
+        }
 
         .label {
             font-weight: bold;
         }
         
-        img {
+        .flag {
             width: 20px;
         }
         
