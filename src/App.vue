@@ -3,7 +3,6 @@ import { store } from './store';
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
-import AppNoResults from './components/AppNoResults.vue';
 
 export default {
     data() {
@@ -14,18 +13,18 @@ export default {
 
     components: {
         AppHeader,
-        AppMain,
-        AppNoResults
+        AppMain
     },
 
     created() {
 
         let APIcallTrendingMovies = store.APIcallTrending + '/movie/week?api_key=' + store.APIkey;
-        let APIcallTrendingSeries = store.APIcallTrending + '/tv/week?api_key=' + store.APIkey;
 
         axios.get(APIcallTrendingMovies).then((res) => {
             this.store.foundMovies = res.data.results;
         });
+
+        let APIcallTrendingSeries = store.APIcallTrending + '/tv/week?api_key=' + store.APIkey;
 
         axios.get(APIcallTrendingSeries).then((res) => {
             this.store.foundSeries = res.data.results;
@@ -44,12 +43,6 @@ export default {
             }).then((res) => {
                 this.store.foundMovies = res.data.results;
 
-                // if (res.data.results.length == 0) {
-                //     store.queryHasResults = false;
-                // } else {
-                //     store.queryHasResults = true;
-                //     store.foundMovies = res.data.results;
-                // };
             });
 
             axios.get(store.APIcallSeries, {
@@ -60,13 +53,8 @@ export default {
             }).then((res) => {
                 this.store.foundSeries = res.data.results;
 
-                // if (res.data.results.length == 0) {
-                //     store.queryHasResults = false;
-                // } else {
-                //     store.queryHasResults = true;
-                //     store.foundSeries = res.data.results;
-                // };
             });
+
         },
 
     }
@@ -76,9 +64,8 @@ export default {
 <template>
 
     <AppHeader @searchFunction="search()"></AppHeader>
-    <AppMain v-if="store.queryHasResults"></AppMain>
-    <AppNoResults v-else></AppNoResults>
-
+    <AppMain></AppMain>
+    
 </template>
 
 <style scoped lang="scss">

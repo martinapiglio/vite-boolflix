@@ -14,6 +14,5 @@ export const store = reactive({
     maxStars: 5,
 
     imgURI: 'https://image.tmdb.org/t/p/',
-    imgSize: 'w342/',
-    queryHasResults: true
+    imgSize: 'w342/'
 });

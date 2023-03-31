@@ -18,7 +18,7 @@ export default {
 @use './style/_variables.scss' as *;
 
     div {
-        height: $main-height;
+        padding: 2rem 2rem;
         color: white;
         background-color: $darkgrey-bg-col;
     }

@@ -71,7 +71,7 @@ export default {
 
 <template>
 
-    <div class="media-item">
+    <div v-if="mediaItem.poster_path!= null" class="media-item">
 
         <div class="poster-container">
             <img :src=" store.imgURI + store.imgSize + mediaItem.poster_path" alt="">
@@ -85,7 +85,7 @@ export default {
                     <span v-else-if="mediaItem.name">{{ mediaItem.name }}</span>
                 </li>
     
-                <li>
+                <li v-if="mediaItem.title != mediaItem.original_title || mediaItem.name != mediaItem.original_name">
                     <span class="label">Titolo Originale: </span>
                     <span v-if="mediaItem.original_title">{{ mediaItem.original_title }}</span>
                     <span v-if="mediaItem.original_name">{{ mediaItem.original_name }}</span>
@@ -119,7 +119,7 @@ export default {
     // test styling
     .media-item {
         position: relative;
-        width: calc(100% / 5 - 20px / 5 * 4);
+        width: calc(100% / 4 - 20px / 4 * 3);
 
         font-size: small;
 

@@ -1,6 +1,7 @@
 <script>
 import { store } from '../store';
 import AppMediaItem from './AppMediaItem.vue';
+import AppNoResults from './AppNoResults.vue';
 
 export default {
     data() {
@@ -10,7 +11,8 @@ export default {
     },
 
     components: {
-        AppMediaItem
+        AppMediaItem,
+        AppNoResults
     }
 
 }
@@ -22,15 +24,17 @@ export default {
 
         <h2>Movies</h2> 
 
-        <div class="container">  
+        <div v-if="store.foundMovies.length != 0" class="container">  
             <AppMediaItem v-for="movie in store.foundMovies" :mediaItem="movie"></AppMediaItem>
         </div>
+        <AppNoResults v-else></AppNoResults>
 
         <h2>Tv Series</h2>
 
-        <div class="container">  
+        <div v-if="store.foundSeries.length != 0" class="container">  
             <AppMediaItem v-for="serie in store.foundSeries" :mediaItem="serie"></AppMediaItem>
         </div>
+        <AppNoResults v-else></AppNoResults>
 
     </main>
 </template>
@@ -49,7 +53,7 @@ export default {
         overflow-y: auto;
         
         .container {
-            @include flex(row, wrap, center, flex-start, stretch);  
+            @include flex(row, wrap, flex-start, flex-start, stretch);  
             gap: 20px; 
         }
     }
