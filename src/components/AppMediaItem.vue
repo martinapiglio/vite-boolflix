@@ -9,7 +9,7 @@ export default {
     },
 
     props: {
-        result: Object,
+        mediaItem: Object,
     },
 
     methods: {
@@ -40,35 +40,28 @@ export default {
 
 <template>
 
-    <div class="movie">
+    <div class="media-item">
         <ul>
             <li>
                 <span class="label">Titolo: </span>
-                <span v-if="result.media_type == 'movie'">{{ result.title }}</span>
-                <span v-else>{{ result.name }}</span>
+                <span v-if="mediaItem.title">{{ mediaItem.title }}</span>
+                <span v-else-if="mediaItem.name">{{ mediaItem.name }}</span>
             </li>
 
             <li>
                 <span class="label">Titolo Originale: </span>
-                <span v-if="result.media_type == 'movie'">{{ result.original_title }}</span>
-                <span v-else>{{ result.original_name }}</span>
+                <span v-if="mediaItem.original_title">{{ mediaItem.original_title }}</span>
+                <span v-if="mediaItem.original_name">{{ mediaItem.original_name }}</span>
             </li>
 
             <li>
                 <span class="label">Lingua Originale: </span> 
-                <img :src="getFlag(result.original_language)" alt="flag"> 
+                <img :src="getFlag(mediaItem.original_language)" alt="flag"> 
             </li>
 
             <li>
-                <span class="label">Voto: </span> {{ result.vote_average }}
+                <span class="label">Voto: </span> {{ mediaItem.vote_average }}
             </li>
-
-            <li>
-                <span class="label">Tipo: </span>
-                <span v-if="result.media_type == 'movie'">Film</span> 
-                <span v-else>Serie tv</span>
-            </li> 
-            
         </ul>
     </div>
 
@@ -77,7 +70,7 @@ export default {
 <style scoped lang="scss">
 
     // test styling
-    .movie {
+    .media-item {
         color: white;
         border: 1px solid white;
         width: calc(100% / 3 - 10px / 3 * 2);

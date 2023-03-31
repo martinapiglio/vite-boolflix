@@ -20,32 +20,52 @@ export default {
 
     created() {
 
-        let APIcallTrendingPROVA = store.APIcallTrending + '/all/week?api_key=' + store.APIkey
+        let APIcallTrendingMovies = store.APIcallTrending + '/movie/week?api_key=' + store.APIkey;
+        let APIcallTrendingSeries = store.APIcallTrending + '/tv/week?api_key=' + store.APIkey;
 
-        axios.get(APIcallTrendingPROVA).then((res) => {
-            store.foundResults = res.data.results;
-            console.log(store.foundResults);
-            console.log(res.data);
-        })
+        axios.get(APIcallTrendingMovies).then((res) => {
+            this.store.foundMovies = res.data.results;
+        });
+
+        axios.get(APIcallTrendingSeries).then((res) => {
+            this.store.foundSeries = res.data.results;
+        });
+
     },
 
     methods: {
 
         search() {
-            axios.get(store.APIcallMulti, {
+            axios.get(store.APIcallMovie, {
                 params: {
                     api_key: store.APIkey,
                     query: store.searchedText
                 }
             }).then((res) => {
+                this.store.foundMovies = res.data.results;
 
-                if (res.data.results.length == 0) {
-                    store.queryHasResults = false;
-                } else {
-                    store.queryHasResults = true;
-                    store.foundResults = res.data.results;
-                };
+                // if (res.data.results.length == 0) {
+                //     store.queryHasResults = false;
+                // } else {
+                //     store.queryHasResults = true;
+                //     store.foundMovies = res.data.results;
+                // };
+            });
 
+            axios.get(store.APIcallSeries, {
+                params: {
+                    api_key: store.APIkey,
+                    query: store.searchedText
+                }
+            }).then((res) => {
+                this.store.foundSeries = res.data.results;
+
+                // if (res.data.results.length == 0) {
+                //     store.queryHasResults = false;
+                // } else {
+                //     store.queryHasResults = true;
+                //     store.foundSeries = res.data.results;
+                // };
             });
         }
     }

@@ -1,6 +1,6 @@
 <script>
 import { store } from '../store';
-import AppResults from './AppResults.vue';
+import AppMediaItem from './AppMediaItem.vue';
 
 export default {
     data() {
@@ -10,7 +10,7 @@ export default {
     },
 
     components: {
-        AppResults
+        AppMediaItem
     }
 
 }
@@ -18,15 +18,21 @@ export default {
 </script>
 
 <template>
-  <main>
+    <main>
 
-    <div class="container">
-        
-        <AppResults v-for="result in store.foundResults" :result="result">
-        </AppResults>
-    </div>
+        <h2>Movies</h2> 
 
-  </main>
+        <div class="container">  
+            <AppMediaItem v-for="movie in store.foundMovies" :mediaItem="movie"></AppMediaItem>
+        </div>
+
+        <h2>Tv Series</h2>
+
+        <div class="container">  
+            <AppMediaItem v-for="serie in store.foundSeries" :mediaItem="serie"></AppMediaItem>
+        </div>
+
+    </main>
 </template>
 
 <style scoped lang="scss">
@@ -38,6 +44,7 @@ export default {
     main {
         height: $main-height;
         padding: 1rem;
+        color: white;
         background-color: $darkgrey-bg-col;
         overflow-y: auto;
         
