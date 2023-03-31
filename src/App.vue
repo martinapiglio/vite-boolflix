@@ -67,7 +67,8 @@ export default {
                 //     store.foundSeries = res.data.results;
                 // };
             });
-        }
+        },
+
     }
 }
 </script>

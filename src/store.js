@@ -10,5 +10,7 @@ export const store = reactive({
     searchedText: '',
     foundMovies: [],
     foundSeries: [],
+    maxVote: 10,
+    maxStars: 5,
     queryHasResults: true
 });

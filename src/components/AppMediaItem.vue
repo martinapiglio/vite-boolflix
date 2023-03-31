@@ -4,7 +4,8 @@ import { store } from '../store';
 export default {
     data() {
         return {
-            store
+            store,
+            htmlCode: '',
         }
     },
 
@@ -31,6 +32,36 @@ export default {
             srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
 
             return srcFlag;
+        },
+        
+        getStarVote(vote) {
+
+            let starValue = (this.store.maxVote / this.store.maxStars);
+            let finalStarVote = (vote / starValue);
+
+            let n = Math.floor(finalStarVote);
+            let nDecimal = finalStarVote - n;
+
+            let starOutput = [];
+
+            for (let i = n; i >= 1; i--) {
+                starOutput.push('<i class="fa-solid fa-star"></i>');
+            }
+
+            if (nDecimal < 0.3) {
+                nDecimal = 0;
+            } else if (nDecimal > 0.7) {
+                nDecimal = 1;
+                starOutput.push('<i class="fa-solid fa-star"></i>');
+            } else {
+                nDecimal = 0.5;
+                starOutput.push('<i class="fa-solid fa-star-half"></i>');
+            };
+
+            this.htmlCode = starOutput.join('');
+
+            return this.htmlCode;
+
         },
 
     }
@@ -60,7 +91,11 @@ export default {
             </li>
 
             <li>
-                <span class="label">Voto: </span> {{ mediaItem.vote_average }}
+                <span class="label">Voto:</span> 
+                <span v-html="htmlCode"></span>
+                <span style="display: none;" > {{ getStarVote(mediaItem.vote_average) }} </span> 
+                <!-- <i v-for="finalVote in getStarVote(mediaItem.vote_average)" class="fa-solid fa-star"></i> -->
+
             </li>
         </ul>
     </div>
