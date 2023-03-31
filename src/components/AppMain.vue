@@ -47,11 +47,16 @@ export default {
     // test styling
     main {
         height: $main-height;
-        padding: 1rem;
+        padding: 0 3rem 3rem;
         color: white;
         background-color: $darkgrey-bg-col;
         overflow-y: auto;
         
+        h2 {
+            padding: 2rem 1rem;
+            font-size: 1.8rem;
+            text-shadow: 5px 5px 5px black;
+        }
         .container {
             @include flex(row, wrap, flex-start, flex-start, stretch);  
             gap: 20px; 

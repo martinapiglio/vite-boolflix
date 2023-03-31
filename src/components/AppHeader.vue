@@ -22,7 +22,7 @@ export default {
         <div id="header-right">
 
             <div id="header-right-search">
-                <input v-model="store.searchedText" @keyup.enter="$emit('searchFunction')" type="search" placeholder="Search for a movie or a tv series...">
+                <input v-model="store.searchedText" @keyup="$emit('searchFunction')" type="search" placeholder="Search for a movie or a tv series...">
                 <button @click="$emit('searchFunction')">Search</button>
             </div>
     
@@ -75,11 +75,16 @@ export default {
 
                 button {
                     padding: .3rem .8rem;
-                    border: none;
+                    border: 1px solid $lightgrey;
                     border-radius: 5px;
                     color: white;
                     background-color: $darkgrey-bg-col;
                     cursor: pointer;
+                    transition: .2s;
+                }
+
+                button:hover {
+                    background-color: rgb(78, 78, 78);
                 }
             }
     

@@ -18,43 +18,48 @@ export default {
 
     created() {
 
-        let APIcallTrendingMovies = store.APIcallTrending + '/movie/week?api_key=' + store.APIkey;
-
-        axios.get(APIcallTrendingMovies).then((res) => {
-            this.store.foundMovies = res.data.results;
-        });
-
-        let APIcallTrendingSeries = store.APIcallTrending + '/tv/week?api_key=' + store.APIkey;
-
-        axios.get(APIcallTrendingSeries).then((res) => {
-            this.store.foundSeries = res.data.results;
-        });
+        this.trendingMedia();
 
     },
 
     methods: {
 
-        search() {
-            axios.get(store.APIcallMovie, {
-                params: {
-                    api_key: store.APIkey,
-                    query: store.searchedText
-                }
-            }).then((res) => {
+        trendingMedia() {
+            let APIcallTrendingMovies = store.APIcallTrending + '/movie/week?api_key=' + store.APIkey;
+
+            axios.get(APIcallTrendingMovies).then((res) => {
                 this.store.foundMovies = res.data.results;
-
             });
 
-            axios.get(store.APIcallSeries, {
-                params: {
-                    api_key: store.APIkey,
-                    query: store.searchedText
-                }
-            }).then((res) => {
+            let APIcallTrendingSeries = store.APIcallTrending + '/tv/week?api_key=' + store.APIkey;
+
+            axios.get(APIcallTrendingSeries).then((res) => {
                 this.store.foundSeries = res.data.results;
-
             });
+        },
 
+        search() {
+            if (store.searchedText == '') {
+                this.trendingMedia();
+            } else {
+                axios.get(store.APIcallMovie, {
+                    params: {
+                        api_key: store.APIkey,
+                        query: store.searchedText
+                    }
+                }).then((res) => {
+                    this.store.foundMovies = res.data.results;
+                });
+    
+                axios.get(store.APIcallSeries, {
+                    params: {
+                        api_key: store.APIkey,
+                        query: store.searchedText
+                    }
+                }).then((res) => {
+                    this.store.foundSeries = res.data.results;
+                });
+            }
         },
 
     }

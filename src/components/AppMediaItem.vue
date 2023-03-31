@@ -124,7 +124,7 @@ export default {
         font-size: small;
 
         color: white;
-        border: 2px solid $darkergrey;
+        border: 1px solid $lightgrey;
         overflow-y: auto;
         cursor: pointer;
 
