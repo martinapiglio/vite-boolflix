@@ -20,9 +20,20 @@ export default {
         </div>
 
         <div id="header-right">
-            <input v-model="store.searchedText" @keyup.enter="$emit('searchFunction')" type="search" placeholder="Search for a movie or a tv series...">
-            <button @click="$emit('searchFunction')">Search</button>
+
+            <div id="header-right-search">
+                <input v-model="store.searchedText" @keyup.enter="$emit('searchFunction')" type="search" placeholder="Search for a movie or a tv series...">
+                <button @click="$emit('searchFunction')">Search</button>
+            </div>
+    
+            <div id="header-right-account">
+                <img src="https://ih1.redbubble.net/image.618427277.3222/flat,800x800,075,f.u2.jpg" alt="">
+                <div>Martina</div>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+
         </div>
+
 
     </header>
 
@@ -49,13 +60,47 @@ export default {
         }
 
         #header-right {
+            @include flex(row, nowrap, space-between, center, stretch);
+            gap: 2rem;
+            height: 100%;
 
-            input {
-                min-width: 230px;
-                margin-right: .3rem;
+            #header-right-search {
+                input {
+                    min-width: 280px;
+                    margin-right: .3rem;
+                    padding: .3rem;
+                    border: none;
+                    border-radius: 5px;
+                }
+
+                button {
+                    padding: .3rem .8rem;
+                    border: none;
+                    border-radius: 5px;
+                    color: white;
+                    background-color: $darkgrey-bg-col;
+                    cursor: pointer;
+                }
             }
+    
+            #header-right-account {
+                @include flex(row, nowrap, space-between, center, stretch);
+                gap: .4rem;
+                height: 100%;
+                color: white;
 
+                img {
+                    height: 40%;
+                    cursor: pointer;
+                }
+
+                i {
+                    font-size: small;
+                    cursor: pointer;
+                }
+            }
         }
+
 
     }
 

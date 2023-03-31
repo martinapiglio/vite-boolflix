@@ -73,60 +73,104 @@ export default {
 
     <div class="media-item">
 
-        <img :src=" store.imgURI + store.imgSize + mediaItem.poster_path" alt="">
+        <div class="poster-container">
+            <img :src=" store.imgURI + store.imgSize + mediaItem.poster_path" alt="">
+        </div>
 
-        <ul>
-            <li>
-                <span class="label">Titolo: </span>
-                <span v-if="mediaItem.title">{{ mediaItem.title }}</span>
-                <span v-else-if="mediaItem.name">{{ mediaItem.name }}</span>
-            </li>
+        <div class="info-container">
+            <ul>
+                <li>
+                    <span class="label">Titolo: </span>
+                    <span v-if="mediaItem.title">{{ mediaItem.title }}</span>
+                    <span v-else-if="mediaItem.name">{{ mediaItem.name }}</span>
+                </li>
+    
+                <li>
+                    <span class="label">Titolo Originale: </span>
+                    <span v-if="mediaItem.original_title">{{ mediaItem.original_title }}</span>
+                    <span v-if="mediaItem.original_name">{{ mediaItem.original_name }}</span>
+                </li>
+    
+                <li>
+                    <span class="label">Lingua Originale: </span> 
+                    <img class="flag" :src="getFlag(mediaItem.original_language)" alt="flag"> 
+                </li>
 
-            <li>
-                <span class="label">Titolo Originale: </span>
-                <span v-if="mediaItem.original_title">{{ mediaItem.original_title }}</span>
-                <span v-if="mediaItem.original_name">{{ mediaItem.original_name }}</span>
-            </li>
+                <li>
+                    <span class="label">Trama: </span>
+                    <span>{{ mediaItem.overview }}</span>
+                </li>
+    
+                <li>
+                    <span class="label">Voto: </span> 
+                    <span v-html="htmlCode" class="star"></span>
+                    <span style="display: none;" > {{ getStarVote(mediaItem.vote_average) }} </span> 
+                </li>
+            </ul>
+        </div>
 
-            <li>
-                <span class="label">Lingua Originale: </span> 
-                <img class="flag" :src="getFlag(mediaItem.original_language)" alt="flag"> 
-            </li>
-
-            <li>
-                <span class="label">Voto:</span> 
-                <span v-html="htmlCode"></span>
-                <span style="display: none;" > {{ getStarVote(mediaItem.vote_average) }} </span> 
-                <!-- <i v-for="finalVote in getStarVote(mediaItem.vote_average)" class="fa-solid fa-star"></i> -->
-
-            </li>
-        </ul>
     </div>
 
 </template>
 
 <style scoped lang="scss">
 
+    @use './style/_variables.scss' as *;
     // test styling
     .media-item {
+        position: relative;
+        width: calc(100% / 5 - 20px / 5 * 4);
+
+        font-size: small;
+
         color: white;
-        border: 1px solid white;
-        width: calc(100% / 3 - 10px / 3 * 2);
+        border: 2px solid $darkergrey;
+        overflow-y: auto;
+        cursor: pointer;
+
+        .poster-container {
+            width: 100%;
+            
+            img {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        .info-container {
+            display: none;
+        }
+
+    }
+    // test styling
+    .media-item:hover .info-container{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        width: 100%;
+        height: 100%;
+
         padding: 1rem;
 
-        img {
-            width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+
+        li {
+            margin-bottom: .4rem;
         }
 
         .label {
             font-weight: bold;
         }
-        
+            
         .flag {
             width: 20px;
         }
-        
+
+        .star {
+            color: rgb(255, 204, 0);
+        }
     }
-    // test styling
 
 </style>

@@ -49,8 +49,8 @@ export default {
         overflow-y: auto;
         
         .container {
-            @include flex(row, wrap, center, center, stretch);  
-            gap: 10px; 
+            @include flex(row, wrap, center, flex-start, stretch);  
+            gap: 20px; 
         }
     }
     // test styling
