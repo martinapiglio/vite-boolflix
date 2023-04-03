@@ -21,9 +21,8 @@ export default {
         </div>
         <div class="card-text-container">
             <ul>
-                <li>
-                    <span class="label">Titolo: </span>
-                    <span class="text"> {{ store.foundMovies[store.cardIndex].title }}</span>
+                <li class="title">
+                    <span> {{ store.foundMovies[store.cardIndex].title }} {{ index }}</span>
                 </li>
 
                 <li v-if="store.foundMovies[store.cardIndex].title != store.foundMovies[store.cardIndex].original_title">
@@ -84,15 +83,6 @@ export default {
             width: 40%;
             padding: 1rem 5rem 1rem 1rem;
             box-shadow: -3rem 0 5rem 3rem rgb(0, 0, 0);      
-
-            i {
-                position: absolute;
-                top: 1rem;
-                right: 1.5rem;
-                font-size: 30px;
-                color: $lightgrey;
-                cursor: pointer;
-            }
             
             ul {
                 @include flex(column, wrap, center, flex-start, baseline);
@@ -103,6 +93,21 @@ export default {
                 .text {
                     color: $lightgrey;
                 }
+
+                .title  {
+                    color: white;
+                    font-size: 23px;
+                    font-weight: bold;
+                }
+            }
+
+            i {
+                position: absolute;
+                top: 1rem;
+                right: 1.5rem;
+                font-size: 30px;
+                color: $lightgrey;
+                cursor: pointer;
             }
         }
 

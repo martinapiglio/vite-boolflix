@@ -19,8 +19,9 @@ export default {
     },
 
     methods: {
-        showCard() {
+        showCard(activeCardIndex) {
             this.store.isShown = true;
+            this.store.cardIndex = activeCardIndex;
 
             let APIcallMovieCast = 'https://api.themoviedb.org/3/movie/' + this.store.foundMovies[store.cardIndex].id + '/credits?api_key=' + store.APIkey;
             this.store.movieCast = [];
@@ -49,8 +50,8 @@ export default {
 
         hideCard() {
             this.store.isShown = false;
-            console.log(this.store.isShown);
-        }
+        },
+
     }
 
 }
@@ -65,7 +66,11 @@ export default {
 
         <div v-if="store.foundMovies.length != 0" class="container"> 
             <div class="inner-container">
-                <AppMediaItem v-for="(movie, index) in store.foundMovies" :mediaItem="movie" :index="index" @click="showCard"></AppMediaItem>
+                <AppMediaItem 
+                    v-for="(movie, index) in store.foundMovies" 
+                    :mediaItem="movie" 
+                    @click="showCard(index)">
+                </AppMediaItem>
             </div> 
             <AppCard id="app-card" :class="store.isShown == true ? 'active' : '' " @closeCard="hideCard()"></AppCard>
         </div>
