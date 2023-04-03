@@ -27,7 +27,7 @@ export default {
                 languageCodeUpper = 'KR';
             } else if (languageCodeUpper == 'ZH'){
                 languageCodeUpper = 'CN';
-            }; 
+            };
 
             srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
 
@@ -37,7 +37,7 @@ export default {
     },
 
     methods: {
-        
+
         getStarVote(vote) {
 
             let starValue = (this.store.maxVote / this.store.maxStars);
@@ -69,7 +69,7 @@ export default {
         },
 
     }
-    
+
 }
 </script>
 
@@ -88,27 +88,29 @@ export default {
                     <span v-if="mediaItem.title">{{ mediaItem.title }}</span>
                     <span v-else-if="mediaItem.name">{{ mediaItem.name }}</span>
                 </li>
-    
+
                 <li v-if="mediaItem.title != mediaItem.original_title || mediaItem.name != mediaItem.original_name">
                     <span class="label">Titolo Originale: </span>
                     <span v-if="mediaItem.original_title">{{ mediaItem.original_title }}</span>
                     <span v-if="mediaItem.original_name">{{ mediaItem.original_name }}</span>
                 </li>
-    
+
                 <li>
-                    <span class="label">Lingua Originale: </span> 
-                    <img class="flag" :src="flag" alt="flag"> 
+                    <span class="label">Lingua Originale: </span>
+                    <img class="flag" :src="flag" alt="flag">
                 </li>
 
                 <li>
                     <span class="label">Trama: </span>
                     <span>{{ mediaItem.overview }}</span>
                 </li>
-    
+
                 <li>
-                    <span class="label">Voto: </span> 
+                    <span class="label">Voto: </span>
+
                     <span v-html="htmlCode" class="star"></span>
-                    <span style="display: none;" > {{ getStarVote(mediaItem.vote_average) }} </span> 
+                    <span style="display: none;" > {{ getStarVote(mediaItem.vote_average) }} </span>
+
                 </li>
             </ul>
         </div>
@@ -120,22 +122,23 @@ export default {
 <style scoped lang="scss">
 
     @use './style/_variables.scss' as *;
-    
+
     .media-item {
         position: relative;
-        width: calc(100% / 4 - 20px / 4 * 3);
+        width: 300px;
+        height: 100%;   
 
         font-size: small;
 
         color: white;
         border: 1px solid $lightgrey;
         overflow: hidden;
-        cursor: pointer;        
+        cursor: pointer;
 
         .poster-container {
             width: 100%;
             transition: all .7s ;
-            
+
             img {
                 display: block;
                 width: 100%;
@@ -154,19 +157,19 @@ export default {
         opacity: 50%;
     }
 
-
     .media-item:hover .info-container{
         display: block;
         position: absolute;
         top: 0;
         left: 0;
-        
+
         width: 100%;
         height: 100%;
 
         padding: 1rem;
 
         background-color: rgba(0, 0, 0, 40%);
+        overflow-y: auto;
 
         li {
             margin-bottom: .4rem;
@@ -175,7 +178,7 @@ export default {
         .label {
             font-weight: bold;
         }
-            
+
         .flag {
             width: 20px;
         }
