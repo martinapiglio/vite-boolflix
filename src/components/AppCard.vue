@@ -8,7 +8,7 @@ export default {
         }
     },
     props: {
-        mediaItem: Object,
+        index: Number,
     },
 }
 </script>
@@ -17,7 +17,7 @@ export default {
 
     <div class="card-container">
         <div class="card-poster-container">
-            <img src="https://image.tmdb.org/t/p/w780//t6HIqrRAclMCA60NsSmeqe9RmNV.jpg" alt="">
+            <img :src="store.imgURI + 'w780/' + store.foundMovies[store.cardIndex].poster_path" alt="">
         </div>
         <div class="card-text-container">
             <ul>
@@ -38,12 +38,12 @@ export default {
 
                 <li>
                     <span class="label">Genere: </span>
-                    <span class="text"> {{ store.movieGenres }} </span>
+                    <span class="text"> {{ store.movieGenres.join(', ') }} </span>
                 </li>
 
                 <li>
                     <span class="label">Cast: </span>
-                    <span class="text"> {{  store.movieCast }}</span>
+                    <span class="text"> {{  store.movieCast.join(', ') }}</span>
                 </li>
             </ul>
             <i @click="$emit('closeCard')" class="fa-solid fa-circle-xmark"></i>

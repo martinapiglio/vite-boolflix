@@ -16,6 +16,7 @@ export const store = reactive({
     imgURI: 'https://image.tmdb.org/t/p/',
     imgSize: 'w342/',
 
+    isShown: false,
     cardIndex: 0,
 
     movieCast: [],
