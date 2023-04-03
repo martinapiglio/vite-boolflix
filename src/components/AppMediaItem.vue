@@ -13,13 +13,11 @@ export default {
         mediaItem: Object,
     },
 
-    methods: {
+    computed: {
 
-        getFlag(string) {
-            let languageCodeUpper = string.toUpperCase();
+        flag() {
+            let languageCodeUpper = (this.mediaItem.original_language).toUpperCase();
             let srcFlag;
-
-            console.log(languageCodeUpper);
 
             if (languageCodeUpper == 'EN') {
                 languageCodeUpper = 'GB';
@@ -27,12 +25,18 @@ export default {
                 languageCodeUpper = 'JP';
             } else if (languageCodeUpper == 'KO'){
                 languageCodeUpper = 'KR';
+            } else if (languageCodeUpper == 'ZH'){
+                languageCodeUpper = 'CN';
             }; 
 
             srcFlag = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + languageCodeUpper + '.svg';
 
             return srcFlag;
         },
+
+    },
+
+    methods: {
         
         getStarVote(vote) {
 
@@ -93,7 +97,7 @@ export default {
     
                 <li>
                     <span class="label">Lingua Originale: </span> 
-                    <img class="flag" :src="getFlag(mediaItem.original_language)" alt="flag"> 
+                    <img class="flag" :src="flag" alt="flag"> 
                 </li>
 
                 <li>
@@ -116,7 +120,7 @@ export default {
 <style scoped lang="scss">
 
     @use './style/_variables.scss' as *;
-    // test styling
+    
     .media-item {
         position: relative;
         width: calc(100% / 4 - 20px / 4 * 3);
@@ -125,15 +129,17 @@ export default {
 
         color: white;
         border: 1px solid $lightgrey;
-        overflow-y: auto;
-        cursor: pointer;
+        overflow: hidden;
+        cursor: pointer;        
 
         .poster-container {
             width: 100%;
+            transition: all .7s ;
             
             img {
                 display: block;
                 width: 100%;
+                transition: all .7s ;
             }
         }
 
@@ -142,7 +148,13 @@ export default {
         }
 
     }
-    // test styling
+
+    .media-item:hover .poster-container img{
+        transform: scale(120%);
+        opacity: 50%;
+    }
+
+
     .media-item:hover .info-container{
         display: block;
         position: absolute;
@@ -154,7 +166,7 @@ export default {
 
         padding: 1rem;
 
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 40%);
 
         li {
             margin-bottom: .4rem;

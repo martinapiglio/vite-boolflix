@@ -4,10 +4,21 @@ import { store } from '../store';
 export default {
     data() {
         return {
-            store
+            store,
+            // options: [
+            //     'Movies',
+            //     'TV Series'
+            // ]
         }
     },
-    emit: ['searchFunction']
+
+    emit: ['searchFunction'],
+
+    // methods : {
+    //     selectOption(opt) {
+    //         this.store.activeOption = opt;
+    //     }
+    // }
 }
 </script>
 
@@ -17,6 +28,14 @@ export default {
 
         <div id="header-left">
             <h1>Boolflix</h1>
+            <!-- <div 
+                v-for="option in options" 
+                @click="selectOption(option)" 
+                :class="store.activeOption == option ? 'active' : ''"
+                class="selection">
+                {{ option }}
+            </div> -->
+
         </div>
 
         <div id="header-right">
@@ -49,13 +68,27 @@ export default {
 
         height: $header-height;
         padding: 0 1rem;
+        color: white;
         background-color: black;
 
         #header-left {
+            // @include flex(row, nowrap, space-between, center, stretch);
 
             h1 {
                 color: red;
+                // padding-right: .7rem;
             }
+
+            // .selection {
+            //     padding: .3rem .5rem;
+            //     color: red;
+            //     cursor: pointer;
+            // }
+
+            // .active {
+            //     color: white;
+            //     background-color: rgba(255, 0, 0, 0.4);
+            // }
 
         }
 
@@ -92,7 +125,6 @@ export default {
                 @include flex(row, nowrap, space-between, center, stretch);
                 gap: .4rem;
                 height: 100%;
-                color: white;
 
                 img {
                     height: 40%;
