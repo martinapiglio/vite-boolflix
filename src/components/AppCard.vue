@@ -7,9 +7,7 @@ export default {
             store,
         }
     },
-    props: {
-        index: Number,
-    },
+
 }
 </script>
 
@@ -48,7 +46,6 @@ export default {
             <i @click="$emit('closeCard')" class="fa-solid fa-circle-xmark"></i>
         </div>
     </div>
-
 
 </template>
 
@@ -110,7 +107,6 @@ export default {
                 cursor: pointer;
             }
         }
-
 
     }
 
