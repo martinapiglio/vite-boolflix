@@ -16,5 +16,9 @@ export const store = reactive({
     imgURI: 'https://image.tmdb.org/t/p/',
     imgSize: 'w342/',
 
-    // activeOption: '',
+    cardIndex: 0,
+
+    movieCast: [],
+    movieGenres: [],
+
 });
