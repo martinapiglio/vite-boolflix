@@ -81,9 +81,15 @@ export default {
 
         <div v-if="store.foundSeries.length != 0" class="container">
             <div class="inner-container">
-                <AppMediaItem v-for="serie in store.foundSeries" :mediaItem="serie"></AppMediaItem>
+                <AppMediaItem 
+                    v-for="serie in store.foundSeries" 
+                    :mediaItem="serie"
+                    @click="showCard(index)">
+                </AppMediaItem>
             </div>  
+            <AppCard id="app-card" :class="store.isShown == true ? 'active' : '' " @closeCard="hideCard()"></AppCard>
         </div>
+        
         <AppNoResults v-else></AppNoResults>
 
     </main>
@@ -103,18 +109,18 @@ export default {
         overflow: hidden;
         
         h2 {
-            padding: 2rem 1rem;
+            padding: 2rem 1rem 1rem;
             font-size: 1.8rem;
             text-shadow: 5px 5px 5px black;
         }
         .container {
-            overflow-x: auto;
+            overflow-x: scroll;
 
             .inner-container {
                 @include flex(row, nowrap, flex-start, flex-start, baseline);  
                 gap: 20px; 
                 width: fit-content;
-                padding: 0 0 2rem;
+                padding: 2rem 1rem;
             }
 
             #app-card {

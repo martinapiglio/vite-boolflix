@@ -48,7 +48,21 @@ export default {
             <div id="header-right-account">
                 <img src="https://ih1.redbubble.net/image.618427277.3222/flat,800x800,075,f.u2.jpg" alt="">
                 <div>Martina</div>
-                <i class="fa-solid fa-chevron-down"></i>
+
+                <div class="settings">
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <div class="settings-info">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                            <span>Account</span> 
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Settings</span> 
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -122,6 +136,7 @@ export default {
             }
     
             #header-right-account {
+                position: relative;
                 @include flex(row, nowrap, space-between, center, stretch);
                 gap: .4rem;
                 height: 100%;
@@ -131,10 +146,54 @@ export default {
                     cursor: pointer;
                 }
 
-                i {
-                    font-size: small;
-                    cursor: pointer;
+                .settings {
+                    .settings-info{
+                        display: none;
+                        font-size: small;
+                        color: white;
+                        border-radius: 8px;
+                        background-color: $darkgrey-bg-col;
+                        overflow: hidden;
+
+                        i {
+                            margin-right: .5rem;
+                        }
+
+                        div:first-child,
+                        div:last-child
+                         {
+                            padding: .6rem 1rem;
+                            transition: .2s;
+                        }
+                    }
+                    
+                    i {
+                        font-size: small;
+                        cursor: pointer;
+                        transition: .5s;
+                    }
+    
+                    i:hover {
+                        transform: rotate(180deg);
+                    }
+
                 }
+
+                .settings:hover .settings-info {
+                    @include flex(column, nowrap, center, center, baseline);
+                    position: absolute;
+                    top: 3.6rem;
+                    right: 0rem;
+                    z-index: 4;
+
+                    border: 1px solid $lightgrey;
+
+                    div:hover {
+                        background-color: rgb(125, 125, 125);
+                        cursor: pointer;
+                    }
+                }
+
             }
         }
 

@@ -136,6 +136,7 @@ export default {
         border: 1px solid $lightgrey;
         overflow: hidden;
         cursor: pointer;
+        transition: all .7s ;
 
         .poster-container {
             width: 100%;
@@ -152,6 +153,10 @@ export default {
             display: none;
         }
 
+    }
+
+    .media-item:hover {
+        transform: scale(110%);
     }
 
     .media-item:hover .poster-container img{

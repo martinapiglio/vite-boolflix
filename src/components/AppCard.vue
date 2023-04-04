@@ -106,6 +106,10 @@ export default {
                 color: $lightgrey;
                 cursor: pointer;
             }
+
+            i:hover {
+                color: white;
+            }
         }
 
     }
