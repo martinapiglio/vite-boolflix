@@ -7,7 +7,7 @@ export default {
         return {
             store,
             AppCard,
-            htmlCode: '',
+            starPercentage: 0,
         }
     },
 
@@ -38,37 +38,21 @@ export default {
 
     },
 
+    created() {
+        this.getStarVote();
+    },
+
     methods: {
 
-        getStarVote(vote) {
-
+        getStarVote() {
             let starValue = (this.store.maxVote / this.store.maxStars);
-            let finalStarVote = (vote / starValue);
+            let starVote = (this.mediaItem.vote_average / starValue);
 
-            let n = Math.floor(finalStarVote);
-            let nDecimal = finalStarVote - n;
+            this.starPercentage = ((starVote / this.store.maxStars) * 100) + '%';
 
-            let starOutput = [];
+            return this.starPercentage;
 
-            for (let i = n; i >= 1; i--) {
-                starOutput.push('<i class="fa-solid fa-star"></i>');
-            }
-
-            if (nDecimal < 0.3) {
-                nDecimal = 0;
-            } else if (nDecimal > 0.7) {
-                nDecimal = 1;
-                starOutput.push('<i class="fa-solid fa-star"></i>');
-            } else {
-                nDecimal = 0.5;
-                starOutput.push('<i class="fa-solid fa-star-half"></i>');
-            };
-
-            this.htmlCode = starOutput.join('');
-
-            return this.htmlCode;
-
-        },
+        }
 
     }
 
@@ -110,8 +94,9 @@ export default {
                 <li>
                     <span class="label">Voto: </span>
 
-                    <span v-html="htmlCode" class="star"></span>
-                    <span style="display: none;" > {{ getStarVote(mediaItem.vote_average) }} </span>
+                    <span class="stars-outer">
+                        <span :style="{width: starPercentage}" class="stars-inner"></span>
+                    </span>
 
                 </li>
             </ul>
@@ -189,10 +174,34 @@ export default {
         .flag {
             width: 20px;
         }
-
-        .star {
+        
+        .stars-outer {
+            position: relative;
+            width: fit-content;
+    
+            .stars-inner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+    
+        .stars-outer::before {
+            content: '\f005 \f005 \f005 \f005 \f005';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: $lightgrey;
+        }
+    
+        .stars-inner::before {
+            content: '\f005 \f005 \f005 \f005 \f005';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
             color: rgb(255, 204, 0);
         }
+
     }
 
 </style>
