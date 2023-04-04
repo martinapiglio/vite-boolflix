@@ -19,38 +19,48 @@ export default {
     },
 
     methods: {
-        showCard(activeCardIndex) {
+        showMovieCard(activeCardIndex) {
             this.store.isShown = true;
             this.store.cardIndex = activeCardIndex;
+            this.createCastGenresArrays('movie', this.store.foundMovies);
+            this.store.type='movie';
+        },
 
-            let APIcallMovieCast = 'https://api.themoviedb.org/3/movie/' + this.store.foundMovies[store.cardIndex].id + '/credits?api_key=' + store.APIkey;
-            this.store.movieCast = [];
-            axios.get(APIcallMovieCast).then((res) => {
-
-                for (let i = 0 ; i < 5 ; i++) {
-                    this.store.movieCast.push(res.data.cast[i].name);
-                };
-
-            });
-
-            let APIcallGenres = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + store.APIkey; 
-            this.store.movieGenres = [];
-            axios.get(APIcallGenres).then((res) => {
-
-                for(let i = 0; i < res.data.genres.length ; i++) {
-
-                    if (this.store.foundMovies[store.cardIndex].genre_ids.includes(res.data.genres[i].id)) {
-                        this.store.movieGenres.push(res.data.genres[i].name);
-                    }
-                }
-
-            });
-
+        showSerieCard(activeCardIndex) {
+            this.store.isShown = true;
+            this.store.cardIndex = activeCardIndex;
+            this.createCastGenresArrays('tv', this.store.foundSeries);
+            this.store.type='tv';
         },
 
         hideCard() {
             this.store.isShown = false;
         },
+
+        createCastGenresArrays(mediaType, mediaItemArray) {
+            let APIcallCast = 'https://api.themoviedb.org/3/' + mediaType + '/' + mediaItemArray[store.cardIndex].id + '/credits?api_key=' + store.APIkey;
+            this.store.cast = [];
+            axios.get(APIcallCast).then((res) => {
+
+                for (let i = 0 ; i < 5 ; i++) {
+                    this.store.cast.push(res.data.cast[i].name);
+                };
+
+            });
+
+            let APIcallGenres = 'https://api.themoviedb.org/3/genre/' + mediaType + '/list?api_key=' + store.APIkey; 
+            this.store.genres = [];
+            axios.get(APIcallGenres).then((res) => {
+
+                for(let i = 0; i < res.data.genres.length ; i++) {
+
+                    if (mediaItemArray[store.cardIndex].genre_ids.includes(res.data.genres[i].id)) {
+                        this.store.genres.push(res.data.genres[i].name);
+                    }
+                }
+
+            });
+        }
 
     }
 
@@ -69,27 +79,27 @@ export default {
                 <AppMediaItem 
                     v-for="(movie, index) in store.foundMovies" 
                     :mediaItem="movie" 
-                    @click="showCard(index)">
+                    @click="showMovieCard(index)">
                 </AppMediaItem>
             </div> 
-            <AppCard id="app-card" :class="store.isShown == true ? 'active' : '' " @closeCard="hideCard()"></AppCard>
         </div>
 
         <AppNoResults v-else></AppNoResults>
+
+        <AppCard id="app-card" :class="store.isShown == true ? 'active' : '' " @closeCard="hideCard()"></AppCard>
 
         <h2>Tv Series</h2>
 
         <div v-if="store.foundSeries.length != 0" class="container">
             <div class="inner-container">
                 <AppMediaItem 
-                    v-for="serie in store.foundSeries" 
+                    v-for="(serie,index) in store.foundSeries" 
                     :mediaItem="serie"
-                    @click="showCard(index)">
+                    @click="showSerieCard(index)">
                 </AppMediaItem>
             </div>  
-            <AppCard id="app-card" :class="store.isShown == true ? 'active' : '' " @closeCard="hideCard()"></AppCard>
         </div>
-        
+
         <AppNoResults v-else></AppNoResults>
 
     </main>
@@ -122,19 +132,19 @@ export default {
                 width: fit-content;
                 padding: 2rem 1rem;
             }
+        }
 
-            #app-card {
+        #app-card {
                 display: none;
             }
 
-            #app-card.active {
-                display: flex;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 3;
-                transform: translateX(25%) translateY(25%);
-            }
+        #app-card.active {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            transform: translateX(25%) translateY(25%);
         }
     }
 

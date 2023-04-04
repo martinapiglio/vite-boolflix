@@ -15,32 +15,36 @@ export default {
 
     <div class="card-container">
         <div class="card-poster-container">
-            <img :src="store.imgURI + 'w780/' + store.foundMovies[store.cardIndex].poster_path" alt="">
+            <img v-if="store.type == 'movie'" :src="store.imgURI + 'w780/' + store.foundMovies[store.cardIndex].poster_path" alt="">
+            <img v-else :src="store.imgURI + 'w780/' + store.foundSeries[store.cardIndex].poster_path" alt="">
         </div>
         <div class="card-text-container">
             <ul>
                 <li class="title">
-                    <span> {{ store.foundMovies[store.cardIndex].title }} {{ index }}</span>
+                    <span v-if="store.type == 'movie'"> {{ store.foundMovies[store.cardIndex].title }}</span>
+                    <span v-else> {{ store.foundSeries[store.cardIndex].name }}</span>
                 </li>
 
-                <li v-if="store.foundMovies[store.cardIndex].title != store.foundMovies[store.cardIndex].original_title">
+                <li v-if="store.foundMovies[store.cardIndex].title != store.foundMovies[store.cardIndex].original_title || store.foundSeries[store.cardIndex].name != store.foundSeries[store.cardIndex].original_name">
                     <span class="label">Titolo Originale: </span>
-                    <span class="text"> {{ store.foundMovies[store.cardIndex].original_title }} </span>
+                    <span v-if="store.type == 'movie'" class="text"> {{ store.foundMovies[store.cardIndex].original_title }} </span>
+                    <span v-else class="text"> {{ store.foundSeries[store.cardIndex].original_name }} </span>
                 </li>
 
                 <li>
                     <span class="label">Trama: </span>
-                    <span class="text"> {{ store.foundMovies[store.cardIndex].overview }}</span>
+                    <span v-if="store.type == 'movie'" class="text"> {{ store.foundMovies[store.cardIndex].overview }}</span>
+                    <span v-else class="text"> {{ store.foundSeries[store.cardIndex].overview }}</span>
                 </li>
 
                 <li>
                     <span class="label">Genere: </span>
-                    <span class="text"> {{ store.movieGenres.join(', ') }} </span>
+                    <span class="text"> {{ store.genres.join(', ') }} </span>
                 </li>
 
                 <li>
                     <span class="label">Cast: </span>
-                    <span class="text"> {{  store.movieCast.join(', ') }}</span>
+                    <span class="text"> {{ store.cast.join(', ') }}</span>
                 </li>
             </ul>
             <i @click="$emit('closeCard')" class="fa-solid fa-circle-xmark"></i>
@@ -82,10 +86,11 @@ export default {
             box-shadow: -3rem 0 5rem 3rem rgb(0, 0, 0);      
             
             ul {
-                @include flex(column, wrap, center, flex-start, baseline);
+                @include flex(column, nowrap, center, flex-start, baseline);
                 gap: 1rem;
                 height: 100%;
                 font-size: small;
+                overflow: auto;
 
                 .text {
                     color: $lightgrey;

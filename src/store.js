@@ -19,7 +19,8 @@ export const store = reactive({
     isShown: false,
     cardIndex: 0,
 
-    movieCast: [],
-    movieGenres: [],
+    cast: [],
+    genres: [],
+    type: '',
 
 });
