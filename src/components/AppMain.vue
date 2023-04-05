@@ -111,8 +111,8 @@ export default {
     @use './style/_mixins.scss' as *;
 
     main {
+        position: relative;
         min-height: $main-height;
-        position:relative;
         padding: 0 3rem 3rem;
         color: white;
         background-color: $darkgrey-bg-col;

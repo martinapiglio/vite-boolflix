@@ -61,7 +61,7 @@ export default {
     .card-container {
         @include flex(row, nowrap, flex-start, flex-start, baseline);
         max-width: 850px;  
-        height: 450px;
+        height: 500px;
         border-radius: 40px;
         overflow: hidden;
         background-color: black;
@@ -69,7 +69,7 @@ export default {
 
         .card-poster-container {
             position: relative;
-            width: 60%;
+            width: 55%;
             img {
                 width: 100%;
                 object-fit: cover;
@@ -81,16 +81,17 @@ export default {
             position: relative;
 
             height: 100%;
-            width: 40%;
-            padding: 1rem 5rem 1rem 1rem;
-            box-shadow: -3rem 0 5rem 3rem rgb(0, 0, 0);      
+            width: 45%;
+            padding: 0 4rem 1rem 0;
+            box-shadow: -3rem 0 5rem 3rem rgb(0, 0, 0);    
+            overflow: auto;  
             
             ul {
                 @include flex(column, nowrap, center, flex-start, baseline);
                 gap: 1rem;
                 height: 100%;
+                padding: 2rem .5rem 2rem 0;
                 font-size: small;
-                overflow: auto;
 
                 .text {
                     color: $lightgrey;
